@@ -46,22 +46,6 @@ function createMainWindow
             S = stft(audioIn, "Window", win, "OverlapLength", overlapLength, "Centered", false);
             audioOut = shiftPitch(S, semitones, "Window", win, "OverlapLength", overlapLength, "LockPhase", false);
 
-            %{
-            FIX IT!
-
-            audioOut = audioOut / max(abs(audioOut));
-            audioOut = audioOut * 2;
-            
-            maxVal = max(abs(audioOut));
-            
-            if maxVal > 1
-                audioOut = audioOut / maxVal;
-            end
-
-            audioOut = sgolayfilt(audioOut, 300, frameLength - 1);
-
-            %}
-
             audioOut = audioOut * 10;
             audioOut = max(min(audioOut, 1), -1);
 
