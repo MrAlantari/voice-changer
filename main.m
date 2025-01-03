@@ -4,4 +4,10 @@ clc;
 
 addpath("./src/");
 
+initializeGain();
+
+buttonsToggleMap();
+
 createMainWindow();
+
+designFilters();
