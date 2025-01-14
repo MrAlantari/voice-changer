@@ -27,6 +27,11 @@ function startRecording(~,~)
     chorusBuffer = zeros(bufferSize, 1);
     writeIndex = 1;
 
+    M = 50;
+    state = [];
+    t = (0:g_frameLength - 1) / g_fs;
+    x = 0.1*sin(2*pi*200*t-pi/5);
+
     g_isRunning = true;
 
     while g_isRunning
@@ -58,6 +63,10 @@ function startRecording(~,~)
             [audioOut, chorusBuffer, writeIndex] = chorus(audioOut, ...
                 chorusBuffer, writeIndex, delayTime, modDepth, modRate);
         end
+
+        [audioOut, state] = denoisingAudio(x, audioOut, state, M);
+
+        audioOut = audioOut';
 
         audioWriter(audioOut);
 

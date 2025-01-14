@@ -118,8 +118,10 @@ function createMainWindow
     end
 
 
-    function setSemitones(src)
-        g_semitones = round(src.Value);
+    function setSemitones(slider)
+        roundValue = round(slider.Value);
+        slider.Value = roundValue;
+        g_semitones = roundValue;
     end
 
     function setGain(slider, whichGain)

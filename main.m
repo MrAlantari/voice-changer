@@ -1,13 +1,16 @@
-close all;
-clear all;
-clc;
+function main()
+    close all;
+    clear all;
+    clc;
+    
+    addpath("./src/");
+    
+    initializeGain();
+    
+    buttonsToggleMap();
+    
+    createMainWindow();
+    
+    designFilters();
 
-addpath("./src/");
-
-initializeGain();
-
-buttonsToggleMap();
-
-createMainWindow();
-
-designFilters();
+end

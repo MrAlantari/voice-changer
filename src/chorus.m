@@ -1,5 +1,5 @@
 function [audioOut, delayBuffer, writeIndex] = chorus(audioIn, delayBuffer, writeIndex, delayTime, modDepth, modRate)
-    global g_fs;
+    global g_fs g_audioLevel;
 
     bufferSize = length(delayBuffer);
     
@@ -12,9 +12,9 @@ function [audioOut, delayBuffer, writeIndex] = chorus(audioIn, delayBuffer, writ
     for n = 1:length(audioIn)
         readIndex = mod(writeIndex - delaySamples(n), bufferSize) + 1;
         
-        audioOut(n) = audioIn(n) + delayBuffer(readIndex);
+        audioOut(n) = audioIn(n) + (g_audioLevel * 0.2 * delayBuffer(readIndex)) + delayBuffer(readIndex);
         
-        delayBuffer(writeIndex) = audioIn(n);
+        delayBuffer(writeIndex) = audioIn(n) * (g_audioLevel * 0.3);
         writeIndex = mod(writeIndex, bufferSize) + 1;
     end
 end
